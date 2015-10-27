@@ -1,0 +1,34 @@
+package uts;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class UTS {
+    
+    public static void main(String[] args) throws IOException {
+        
+        Socket socket = new Socket("10.151.34.155", 6666);
+
+        InputStream is = socket.getInputStream(); 
+        OutputStream os = socket.getOutputStream(); 
+
+        while (true) {
+            byte[] buf = new byte[10];
+            int len = is.read(buf);
+            System.out.print(new String(buf));
+            if (len<10){
+            break;
+            }
+        }
+        
+        Scanner scanner = new Scanner(System.in);
+        String test = scanner.nextLine();
+        
+        os.write(test.getBytes());
+        os.flush();
+        
+    } 
+}
